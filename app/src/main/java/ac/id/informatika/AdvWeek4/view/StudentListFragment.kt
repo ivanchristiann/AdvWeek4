@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -31,36 +32,38 @@ class StudentListFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         viewModel.refresh()
 
-//        val recyclerViews: RecyclerView = findViewById(ac.id.informatika.AdvWeek4.R.id.txtError)
+        val recyclerViewList = view.findViewById<RecyclerView>(R.id.recListStudent);
 
-//        recListStudent.layoutManager = LinearLayoutManager(context)
-//        recListStudent.adapter = studentListAdapter
+        recyclerViewList.layoutManager = LinearLayoutManager(context)
+        recyclerViewList.adapter = studentListAdapter
         observeViewModel()
-
     }
-    fun observeViewModel() {
 
+    fun observeViewModel() {
         viewModel.studentsLD.observe(viewLifecycleOwner, Observer {
             studentListAdapter.updateStudentList(it)
         })
 
         viewModel.studentLoadErrorLD.observe(viewLifecycleOwner, Observer {
-//            val textView: TextView = findViewById(ac.id.informatika.AdvWeek4.R.id.txtError)
-//            if(it == true) {
-//                txtError.visibility = View.VISIBLE
-//            } else {
-//                txtError.visibility = View.GONE
-//            }
+            val errorTxt = view?.findViewById<TextView>(R.id.txtError);
+            if(it == true) {
+                errorTxt?.visibility = View.VISIBLE
+            } else {
+                errorTxt?.visibility = View.GONE
+            }
         })
 
         viewModel.loadingLD.observe(viewLifecycleOwner, Observer {
-//            if(it == true) {
-//                R.id.recListStudent.visibility = View.GONE
-//                progressBar.visibility = View.VISIBLE
-//            } else {
-//                recListStudent.visibility = View.VISIBLE
-//                progressBar.visibility = View.GONE
-//            }
+            val recyclerViewList = view?.findViewById<RecyclerView>(R.id.recListStudent);
+            val progressBar = view?.findViewById<ProgressBar>(R.id.progressBar);
+
+            if(it == true) {
+                recyclerViewList?.visibility = View.GONE
+                progressBar?.visibility = View.VISIBLE
+            } else {
+                recyclerViewList?.visibility = View.VISIBLE
+                progressBar?.visibility = View.GONE
+            }
         })
     }
 
