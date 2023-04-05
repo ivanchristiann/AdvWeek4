@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ac.id.informatika.AdvWeek4.R
+import ac.id.informatika.AdvWeek4.util.loadImage
 import ac.id.informatika.AdvWeek4.viewmodel.DetailViewModel
 import ac.id.informatika.AdvWeek4.viewmodel.ListViewModel
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -29,18 +31,24 @@ class StudentDetailFragment : Fragment() {
         observeViewModel()
     }
     fun observeViewModel(){
+        //t
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        viewModel.fetch()
-        viewModel.studentLD.observe(viewLifecycleOwner, Observer {
+        viewModel.fetch(StudentDetailFragmentArgs.fromBundle(requireArguments()).idStudent)
+        viewModel.studentsLD.observe(viewLifecycleOwner, Observer {
+            val progressBarDetail = view?.findViewById<ProgressBar>(R.id.progressBarDetailFoto)
+            val photoImage = view?.findViewById<ImageView>(R.id.imageView3)
             val txtId = view?.findViewById<TextInputEditText>(R.id.txtID)
             val txtName = view?.findViewById<TextInputEditText>(R.id.txtName)
             val txtBodate = view?.findViewById<TextInputEditText>(R.id.txtBodate)
             val txtPhone = view?.findViewById<TextInputEditText>(R.id.txtPhone)
 
-            txtId?.setText(viewModel.studentLD.value?.id)
-            txtName?.setText(viewModel.studentLD.value?.name)
-            txtBodate?.setText(viewModel.studentLD.value?.dob)
-            txtPhone?.setText(viewModel.studentLD.value?.phone)
+            if (progressBarDetail != null) {
+                photoImage?.loadImage(viewModel.studentsLD.value?.photoUrl, progressBarDetail)
+            }
+            txtId?.setText(viewModel.studentsLD.value?.id)
+            txtName?.setText(viewModel.studentsLD.value?.name)
+            txtBodate?.setText(viewModel.studentsLD.value?.dob)
+            txtPhone?.setText(viewModel.studentsLD.value?.phone)
         })
     }
 }

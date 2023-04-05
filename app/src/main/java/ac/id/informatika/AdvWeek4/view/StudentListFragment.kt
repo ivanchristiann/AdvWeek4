@@ -13,6 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.textfield.TextInputEditText
 
 
 class StudentListFragment : Fragment() {
@@ -37,6 +39,15 @@ class StudentListFragment : Fragment() {
         recyclerViewList.layoutManager = LinearLayoutManager(context)
         recyclerViewList.adapter = studentListAdapter
         observeViewModel()
+
+        view.findViewById<SwipeRefreshLayout>(R.id.refreshLayout).setOnRefreshListener {
+            recyclerViewList.visibility = View.GONE
+            view.findViewById<TextView>(R.id.txtError).visibility = View.GONE
+            view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+
+            viewModel.refresh()
+            view.findViewById<SwipeRefreshLayout>(R.id.refreshLayout).isRefreshing = false
+        }
     }
 
     fun observeViewModel() {
@@ -65,6 +76,7 @@ class StudentListFragment : Fragment() {
                 progressBar?.visibility = View.GONE
             }
         })
+        
     }
 
 }

@@ -9,7 +9,11 @@
         android:id="@+id/studentDetailFragment"
         android:name="ac.id.informatika.AdvWeek4.view.StudentDetailFragment"
         android:label="fragment_student_detail"
-        tools:layout="@layout/fragment_student_detail" />
+        tools:layout="@layout/fragment_student_detail" >
+        <argument
+            android:name="id_student"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/studentListFragment"
         android:name="ac.id.informatika.AdvWeek4.view.StudentListFragment"
