@@ -9,12 +9,18 @@ import ac.id.informatika.AdvWeek4.R
 import ac.id.informatika.AdvWeek4.util.loadImage
 import ac.id.informatika.AdvWeek4.viewmodel.DetailViewModel
 import ac.id.informatika.AdvWeek4.viewmodel.ListViewModel
+import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class StudentDetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
@@ -31,7 +37,6 @@ class StudentDetailFragment : Fragment() {
         observeViewModel()
     }
     fun observeViewModel(){
-        //t
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         viewModel.fetch(StudentDetailFragmentArgs.fromBundle(requireArguments()).idStudent)
         viewModel.studentsLD.observe(viewLifecycleOwner, Observer {
@@ -49,6 +54,23 @@ class StudentDetailFragment : Fragment() {
             txtName?.setText(viewModel.studentsLD.value?.name)
             txtBodate?.setText(viewModel.studentsLD.value?.dob)
             txtPhone?.setText(viewModel.studentsLD.value?.phone)
+
+            var student = it
+            val btnNotif = view?.findViewById<Button>(R.id.btnNotif)
+            btnNotif?.setOnClickListener{
+                Observable.timer(5, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        Log.d("Messages", "five seconds")
+                        MainActivity.showNotification(student.name.toString(), "A new notification created",
+                            R.drawable.ic_baseline_person_24)
+                    }
+            }
+
+
+
         })
+
     }
 }
