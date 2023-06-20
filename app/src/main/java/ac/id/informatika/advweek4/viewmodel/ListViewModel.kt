@@ -1,11 +1,10 @@
-package ac.id.informatika.AdvWeek4.viewmodel
+package ac.id.informatika.advweek4.viewmodel
 
-import ac.id.informatika.AdvWeek4.model.Student
+import ac.id.informatika.advweek4.model.Student
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
@@ -33,7 +32,7 @@ class ListViewModel(application: Application) :AndroidViewModel(application) {
         studentLoadErrorLD.value = false
 
         queue = Volley.newRequestQueue(getApplication())
-        val url = "http://adv.jitusolution.com/student.php"
+        val url = "http://jitusolution.com/student.php"
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {

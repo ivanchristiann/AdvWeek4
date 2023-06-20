@@ -1,7 +1,8 @@
-package ac.id.informatika.AdvWeek4.view
+package ac.id.informatika.advweek4.view
+
 
 import ac.id.informatika.AdvWeek4.R
-import ac.id.informatika.AdvWeek4.viewmodel.ListViewModel
+import ac.id.informatika.advweek4.viewmodel.ListViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.textfield.TextInputEditText
 
 
 class StudentListFragment : Fragment() {

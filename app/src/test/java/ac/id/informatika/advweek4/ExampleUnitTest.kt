@@ -1,4 +1,4 @@
-package ac.id.informatika.AdvWeek4
+package ac.id.informatika.advweek4
 
 import org.junit.Test
 

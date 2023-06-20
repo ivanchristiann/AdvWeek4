@@ -1,7 +1,7 @@
-package ac.id.informatika.AdvWeek4.view
+package ac.id.informatika.advweek4.view
 
 import ac.id.informatika.AdvWeek4.R
-import ac.id.informatika.AdvWeek4.util.createNotificationChannel
+import ac.id.informatika.advweek4.util.createNotificationChannel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,6 @@ import androidx.core.app.NotificationManagerCompat
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 priority = NotificationCompat.PRIORITY_DEFAULT
                 setAutoCancel(true)
             }
-            val notificationManager = NotificationManagerCompat.from(instance!!.applicationContext.applicationContext!!)
+            val notificationManager = NotificationManagerCompat.from(instance!!.applicationContext)
             notificationManager.notify(1001, notificationBuilder.build())
 
         }
@@ -45,9 +44,8 @@ class MainActivity : AppCompatActivity() {
                 NotificationManagerCompat.IMPORTANCE_DEFAULT, false,
                 getString(R.string.app_name), "App notification channel.")
 
-
             val observable = Observable.just("a stream of data","hellow","world")
-        val observer = object : Observer<String> {
+            val observer = object : Observer<String> {
             override fun onSubscribe(d: Disposable) {
                 Log.d("Messages", "begin subscribe")
             }

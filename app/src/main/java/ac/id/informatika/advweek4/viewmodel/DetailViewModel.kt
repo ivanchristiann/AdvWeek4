@@ -1,17 +1,10 @@
-package ac.id.informatika.AdvWeek4.viewmodel
+package ac.id.informatika.advweek4.viewmodel
 
-import ac.id.informatika.AdvWeek4.R
-import ac.id.informatika.AdvWeek4.model.Student
+import ac.id.informatika.advweek4.model.Student
 import android.app.Application
 import android.util.Log
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
@@ -31,7 +24,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     fun fetch(nrp: String) {
         queue = Volley.newRequestQueue(getApplication())
-        val url = "http://adv.jitusolution.com/student.php?id=$nrp"
+        val url = "http://jitusolution.com/student.php?id=$nrp"
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
